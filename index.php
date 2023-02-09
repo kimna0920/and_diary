@@ -5,7 +5,8 @@
      $query = mysqli_query($conn,$sql);
      $data = mysqli_fetch_array($query);
 
-     $getName = $data['ow_name'];
+     $getName = $_SESSION['user_name'];
+     $getId = $_SESSION['user_id'];
 ?>
  <html>
   <head>
@@ -23,9 +24,6 @@
     <nav>
       <div class="nav-container">
         <div class="nav-1">
-            <span>
-                <a href="index.php" class="logo_instagram_txt">and_diary</a> 
-            </span>
             <?php    
                 if(!isset($_SESSION['user_id'])){
              ?>   <span>로그인 해주세요</span>
@@ -39,7 +37,10 @@
                 }
              ?>
         </div>
-        <input id="searchInput" type="search" class="input-search" placeholder="검색">
+        <span>
+            <a href="index.php" class="logo_instagram_txt">AND_diary</a> 
+        </span>
+<!--        <input id="searchInput" type="search" class="input-search" placeholder="검색">-->
         <div class="nav-2">
          <?php    
             if(!isset($_SESSION['user_id'])){
@@ -80,7 +81,6 @@
     
     <main>
       <div class="feeds">
-        
         <article>
           <header>
             <div class="profile-of-article">
@@ -183,13 +183,28 @@
       </div>
       
       <div class="main-right">
+      <?php
+       if(isset($_SESSION['user_id'])){
+      ?>
         <div class="myProfile">
           <img class="pic" src="img/profile11.jpg" alt="na_young_9012님의 프로필 사진">
           <div>
-            <span class="userID point-span">na_young_9012</span>
-            <span class="sub-span">김나영</span>  
+            <span class="userID point-span">
+                <?php
+                    echo $getId;
+                ?>
+            </span>
+            <span class="sub-span">
+                <?php
+                    echo $getName;
+                ?>
+            </span>  
           </div>
-        </div>
+        
+       <?php
+          }
+       ?>
+        
         
         <div class="section-story">
           <div class="menu-title">
@@ -241,54 +256,7 @@
             </li>
           </ul>
         </div>
-        
-<!--
-        <div class="section-recommend">
-          <div class="menu-title">
-            <span class="sub-title">회원님을 위한 추천</span>
-            <span class="find-more"><a href="find_member"></a>모두 보기</span>
-          </div>
-          <ul class="recommend-list">
-            <li>
-              <div class="recommend-friend-profile">
-                <img class="img-profile" src="img/profile08.jpg" alt="Chun_ja님의 프로필 사진">
-                <div class="profile-text">
-                  <span class="userID point-span">
-                      <a href="#">Chun_ja</a>
-                  </span>
-                </div>
-              </div>
-              <span class="btn-follow">팔로우</span>
-            </li>
-            <li>
-              <div class="recommend-friend-profile">
-                <img class="img-profile" src="img/profile09.jpg" alt="chunduk_geeee님의 프로필 사진">
-                <div class="profile-text">
-                  <span class="userID point-span">
-                      <a href="#">chunduk_geeee</a>
-                  </span>
 
-                </div>
-              </div>
-              <span class="btn-follow">팔로우</span>
-            </li>
-            <li>
-              <div class="recommend-friend-profile">
-                <img class="img-profile" src="img/profile10.jpg" alt="junna_tired님의 프로필 사진">
-                <div class="profile-text">
-                  <span class="userID point-span">
-                      <a href="#">junna_tired</a>
-                  </span>
-                  <span class="sub-span">
-                      Hamjj_jjjjang님 외 5명이 팔로우합
-                  </span>  
-                </div>
-              </div>
-              <span class="btn-follow">팔로우</span>
-            </li>
-          </ul>
-        </div>
--->
         <footer>
           <p class="insta-sccript">
             소개 ∙ 도움말 ∙ 홍보 센터 ∙ API
@@ -296,6 +264,7 @@
             © 2020 INSTAGRAM FROM FACEBOOK
           </p>
         </footer>
+
       </div>
     </main>
     <script src="js/main.js"></script>
